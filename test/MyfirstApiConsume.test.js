@@ -23,7 +23,7 @@ describe('First Api Tests', () => {
     expect(response.status).to.equal(statusCode.OK);
     expect(response.body.args).to.eql(query);
   });
-  it.only('Consume POST Service with send parameters', async () => {
+  it('Consume POST Service with send parameters', async () => {
     const query = {name: 'John',age: '31',city: 'New York'};
   
     const response = await agent.post('https://httpbin.org/post').send(query);
@@ -31,4 +31,22 @@ describe('First Api Tests', () => {
     expect(JSON.parse(response.body.data)).to.eql(query);
 
   });
+  it('Consume PATCH Service with send parameters', async () => {
+    const query = {name: 'John',age: '31',city: 'New York'};
+  
+    const response = await agent.patch('https://httpbin.org/patch').send(query);
+    expect(response.status).to.equal(statusCode.OK);
+    expect(JSON.parse(response.body.data)).to.eql(query);
+
+  });
+  it('Consume DELETE Service with send parameters', async () => {
+    const query = {name: 'John',age: '31',city: 'New York'};
+  
+    const response = await agent.del('https://httpbin.org/delete').send(query);
+    expect(response.status).to.equal(statusCode.OK);
+    expect(JSON.parse(response.body.data)).to.eql(query);
+
+  });
+
+
 });
