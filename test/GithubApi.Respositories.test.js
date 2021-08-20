@@ -34,7 +34,7 @@ describe('Trying Github Api GET methods', () => {
       expect(theRepo).containSubset(data.repoInfo);
     });
 
-    xdescribe('Download a repository', () => {
+    describe('Download a repository', () => {
       let downloadRepo;
       beforeEach(async () => {
         const response = await agent
