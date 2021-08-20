@@ -4,26 +4,28 @@ const md5 = require('md5');
 const chai = require('chai');
 const expect = require('chai').expect;
 const chaiSubset = require('chai-subset');
-
+const githubReq = require('../src/GithubRequest.js');
 chai.use(chaiSubset);
 
 const urlBase = 'https://api.github.com';
 const githubUserName = 'aperdomob';
 const repository = 'jasmine-awesome-report';
 
-describe("GithubApi's GET method tests", () => {
+describe.only("GithubApi's GET method tests", () => {
   let user;
+  let userInfo = {
+    name: 'Alejandro Perdomo',
+    company: 'Perficient Latam',
+    location: 'Colombia',
+  };
   beforeEach(async () => {
-    const response = await agent
-      .get(`${urlBase}/users/${githubUserName}`)
-      .auth('token', process.env.ACCESS_TOKEN)
-      .set('User-Agent', 'agent');
+    const response = await githubReq.authGet(
+      `${urlBase}/users/${githubUserName}`
+    );
     user = response.body;
   });
   it('get user name, company and location', async () => {
-    expect(user.name).to.eq('Alejandro Perdomo');
-    expect(user.company).to.eq('Perficient Latam');
-    expect(user.location).to.eq('Colombia');
+    expect(user).containSubset(userInfo);
   });
 
   describe('getting repositories', () => {
@@ -34,10 +36,7 @@ describe("GithubApi's GET method tests", () => {
       description: 'An awesome html report for Jasmine',
     };
     beforeEach(async () => {
-      const response = await agent
-        .get(`${user.repos_url}`)
-        .auth('token', process.env.ACCESS_TOKEN)
-        .set('User-Agent', 'agent');
+      const response = await githubReq.authGet(`${user.repos_url}`);
       const repos = response.body;
       theRepo = repos.find((repo) => repo.name === repository);
     });
@@ -49,12 +48,9 @@ describe("GithubApi's GET method tests", () => {
       let downloedRepo;
 
       beforeEach(async () => {
-        const response = await agent
-          .get(
-            `${theRepo.html_url}/archive/refs/heads/${theRepo.default_branch}.zip`
-          )
-          .auth('token', process.env.ACCESS_TOKEN)
-          .set('User-Agent', 'agent');
+        const response = await githubReq.authGet(
+          `${theRepo.html_url}/archive/refs/heads/${theRepo.default_branch}.zip`
+        );
         downloedRepo = response.body;
       });
       it('the repository should be downloaded', async () => {
@@ -70,10 +66,9 @@ describe("GithubApi's GET method tests", () => {
         sha: '1eb7c4c6f8746fcb3d8767eca780d4f6c393c484',
       };
       beforeEach(async () => {
-        const response = await agent
-          .get(`${theRepo.contents_url.replace('{' + '+path}', '')}`)
-          .auth('token', process.env.ACCESS_TOKEN)
-          .set('User-Agent', 'agent');
+        const response = await githubReq.authGet(
+          `${theRepo.contents_url.replace('{' + '+path}', '')}`
+        );
         const files = response.body;
         theFile = files.find((file) => file.name === 'README.md');
       });
