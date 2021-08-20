@@ -18,4 +18,10 @@ getData = {
   md5RawFile: '3449c9e5e332f1dbb81505cd739fbf3f',
 };
 
+postData = {
+  issueInfo: {
+    title: 'trying github api',
+    body: null,
+  },
+};
 module.exports = getData;

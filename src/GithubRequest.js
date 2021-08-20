@@ -14,6 +14,22 @@ class GithubRequest {
       .set('User-Agent', 'agent');
     return response;
   }
+  async authPost(url, query) {
+    const response = await agent
+      .post(url)
+      .auth('token', process.env.ACCESS_TOKEN)
+      .set('User-Agent', 'agent')
+      .send(query);
+    return response;
+  }
+  async authPatch(url, query) {
+    const response = await agent
+      .patch(url)
+      .auth('token', process.env.ACCESS_TOKEN)
+      .set('User-Agent', 'agent')
+      .send(query);
+    return response;
+  }
 }
 
 module.exports = new GithubRequest();
