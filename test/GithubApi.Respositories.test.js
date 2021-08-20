@@ -14,10 +14,9 @@ const repository = 'jasmine-awesome-report';
 describe('Trying Github Api GET methods', () => {
   let user;
   beforeEach(async () => {
-    const response = await agent
-      .put(`${urlBase}/users/${githubUserName}`)
-      .auth('token', process.env.ACCESS_TOKEN)
-      .set('User-Agent', 'agent');
+    const response = await githubReq.authGet(
+      `${urlBase}/users/${githubUserName}`
+    );
     user = response.body;
   });
   it('get user name, company and location', () => {
@@ -35,7 +34,7 @@ describe('Trying Github Api GET methods', () => {
       expect(theRepo).containSubset(data.repoInfo);
     });
 
-    xdescribe('Download a repository', () => {
+    describe('Download a repository', () => {
       let downloadRepo;
       beforeEach(async () => {
         const response = await githubReq.authGet(
