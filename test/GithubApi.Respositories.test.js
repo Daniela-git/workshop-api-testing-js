@@ -34,7 +34,7 @@ describe('Trying Github Api GET methods', () => {
       expect(theRepo).containSubset(data.repoInfo);
     });
 
-    describe('Download a repository', () => {
+    xdescribe('Download a repository', () => {
       let downloadRepo;
       beforeEach(async () => {
         const response = await agent
@@ -45,7 +45,7 @@ describe('Trying Github Api GET methods', () => {
         downloadRepo = response.text;
       });
       it('the repository should be downloaded', () => {
-        // expect(md5(downloadRepo)).to.equal(data.md5Value);
+        expect(md5(downloadRepo)).to.equal(data.md5Value);
       });
     });
 
