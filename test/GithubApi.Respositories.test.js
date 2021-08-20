@@ -1,18 +1,16 @@
-const agent = require('superagent');
-const statusCode = require('http-status-codes');
 const md5 = require('md5');
 const chai = require('chai');
 const expect = require('chai').expect;
 const chaiSubset = require('chai-subset');
 const githubReq = require('../src/GithubRequest.js');
-const data = require('../src/data/GetMethod');
+const data = require('../src/data/GetMethod.data');
 chai.use(chaiSubset);
 
 const urlBase = 'https://api.github.com';
 const githubUserName = 'aperdomob';
 const repository = 'jasmine-awesome-report';
 
-describe("GithubApi's GET method tests", () => {
+describe('Trying Github Api GET methods', () => {
   let user;
   beforeEach(async () => {
     const response = await githubReq.authGet(
@@ -24,7 +22,7 @@ describe("GithubApi's GET method tests", () => {
     expect(user).containSubset(data.userInfo);
   });
 
-  describe('getting repositories', () => {
+  describe('getting all repositories', () => {
     let theRepo;
     beforeEach(async () => {
       const response = await githubReq.authGet(`${user.repos_url}`);
@@ -34,6 +32,7 @@ describe("GithubApi's GET method tests", () => {
     it('repository information', async () => {
       expect(theRepo).containSubset(data.repoInfo);
     });
+
     describe('Download a repository', () => {
       let downloedRepo;
       beforeEach(async () => {
@@ -47,7 +46,7 @@ describe("GithubApi's GET method tests", () => {
       });
     });
 
-    describe("getting all the repo's files", () => {
+    describe('getting all the repo files', () => {
       let theFile;
       beforeEach(async () => {
         const response = await githubReq.authGet(
@@ -58,6 +57,17 @@ describe("GithubApi's GET method tests", () => {
       });
       it('should get the file info', () => {
         expect(theFile).containSubset(data.objInfo);
+      });
+
+      describe('download the file from the repo', () => {
+        let rawFile;
+        beforeEach(async () => {
+          const response = await githubReq.authGet(theFile.download_url);
+          rawFile = response.body;
+        });
+        it('the file should be downloaded', async () => {
+          expect(md5(rawFile)).to.eq(data.md5RawFile);
+        });
       });
     });
   });
