@@ -38,12 +38,10 @@ describe('Trying Github Api GET methods', () => {
     xdescribe('Download a repository', () => {
       let downloadRepo;
       beforeEach(async () => {
-        const response = await agent
-          .get(`${theRepo.svn_url}/archive/${theRepo.default_branch}.zip`)
-          .auth('token', process.env.ACCESS_TOKEN)
-          .set('User-Agent', 'agent')
-          .buffer(true);
-        downloadRepo = response.text;
+        const response = await githubReq.authGet(
+          `${theRepo.html_url}/archive/refs/heads/${theRepo.default_branch}.zip`
+        );
+        downloadRepo = response.body;
       });
       it('the repository should be downloaded', () => {
         expect(md5(downloadRepo)).to.equal(data.md5Value);
