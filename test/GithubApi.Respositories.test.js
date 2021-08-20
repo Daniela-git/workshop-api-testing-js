@@ -1,4 +1,5 @@
 const md5 = require('md5');
+const agent = require('superagent');
 const chai = require('chai');
 const expect = require('chai').expect;
 const chaiSubset = require('chai-subset');
@@ -34,15 +35,17 @@ describe('Trying Github Api GET methods', () => {
     });
 
     describe('Download a repository', () => {
-      let downloedRepo;
+      let downloadRepo;
       beforeEach(async () => {
-        const response = await githubReq.authGet(
-          `${theRepo.html_url}/archive/refs/heads/${theRepo.default_branch}.zip`
-        );
-        downloedRepo = response.body;
+        const response = await agent
+          .get(`${theRepo.html_url}/archive/${theRepo.default_branch}.zip`)
+          .auth('token', process.env.ACCESS_TOKEN)
+          .set('User-Agent', 'agent')
+          .buffer(true);
+        downloadRepo = response.text;
       });
       it('the repository should be downloaded', async () => {
-        expect(md5(downloedRepo)).to.equal(data.md5Value);
+        expect(md5(downloadRepo)).to.equal(data.md5Value);
       });
     });
 
