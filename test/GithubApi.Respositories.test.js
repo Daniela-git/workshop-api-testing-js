@@ -38,7 +38,7 @@ describe('Trying Github Api GET methods', () => {
       let downloadRepo;
       beforeEach(async () => {
         const response = await agent
-          .get(`${theRepo.html_url}/archive/${theRepo.default_branch}.zip`)
+          .get(`${theRepo.svn_url}/archive/${theRepo.default_branch}.zip`)
           .auth('token', process.env.ACCESS_TOKEN)
           .set('User-Agent', 'agent')
           .buffer(true);
