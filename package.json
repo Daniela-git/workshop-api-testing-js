@@ -15,6 +15,10 @@
     "dojo",
     "practice"
   ],
+  "mocha": {
+    "exclude": "test/MyfirstApiConsume.test.js"
+
+  },
   "author": "Daniela Higuita <dhigitaa17@gmail.com> (Daniela-git)",
   "license": "MIT",
   "bugs": {
