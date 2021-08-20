@@ -14,9 +14,10 @@ const repository = 'jasmine-awesome-report';
 describe('Trying Github Api GET methods', () => {
   let user;
   beforeEach(async () => {
-    const response = await githubReq.authGet(
-      `${urlBase}/users/${githubUserName}`
-    );
+    const response = await agent
+      .put(`${urlBase}/users/${githubUserName}`)
+      .auth('token', process.env.ACCESS_TOKEN)
+      .set('User-Agent', 'agent');
     user = response.body;
   });
   it('get user name, company and location', () => {
