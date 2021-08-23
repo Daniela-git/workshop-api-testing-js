@@ -37,6 +37,13 @@ class GithubRequest {
       .set('User-Agent', 'agent');
     return response;
   }
+  async authHead(url) {
+    const response = await agent
+      .head(url)
+      .auth('token', process.env.ACCESS_TOKEN)
+      .set('User-Agent', 'agent');
+    return response;
+  }
 }
 
 module.exports = new GithubRequest();

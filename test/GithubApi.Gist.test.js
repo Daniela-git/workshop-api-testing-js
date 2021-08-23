@@ -8,7 +8,7 @@ const data = require('../src/data/deleteMethod.data');
 chai.use(chaiSubset);
 
 const urlBase = 'https://api.github.com';
-describe.only('Trying delete method', () => {
+describe('Trying delete method', () => {
   let gist;
   let gistRes;
   beforeEach(async () => {
