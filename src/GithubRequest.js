@@ -30,6 +30,13 @@ class GithubRequest {
       .send(query);
     return response;
   }
+  async authDelete(url) {
+    const response = await agent
+      .delete(url)
+      .auth('token', process.env.ACCESS_TOKEN)
+      .set('User-Agent', 'agent');
+    return response;
+  }
 }
 
 module.exports = new GithubRequest();
