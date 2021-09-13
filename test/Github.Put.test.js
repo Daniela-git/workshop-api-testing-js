@@ -1,4 +1,3 @@
-const agent = require('superagent');
 const statusCode = require('http-status-codes');
 const { expect } = require('chai');
 const githubReq = require('../src/GithubRequest.js');

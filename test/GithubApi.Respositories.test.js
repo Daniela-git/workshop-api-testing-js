@@ -11,7 +11,7 @@ const urlBase = 'https://api.github.com';
 const githubUserName = 'aperdomob';
 const repository = 'jasmine-awesome-report';
 
-describe('Trying Github Api GET methods', () => {
+describe.only('Trying Github Api GET methods', () => {
   let user;
   beforeEach(async () => {
     const response = await githubReq.authGet(
