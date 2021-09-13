@@ -6,7 +6,6 @@ notifications:
 email: false
 branches:
 except:
-- "/^v\\d+\\.\\d+\\.\\d+$/"
 env:
   global:
   - secure: esvvZQjX1uwAUBdDao5V8dzMFah9NEL3uSb9fbiKcQunegTBZEU3RoAuHywYshghskZ4MXKhe+6vyjAJvVrV5pcD2bdEHQCOEySfoDs+doLwKjH9bPZOefQ7WMOZF9xHAJ/OzhFyQECwH2Z9t3pHAvApraGszUyzSSU+OS0FQKqvdvG65E0mMTc1E60l6lbH12hHs8+cSrM6BUuiesUD8wwWFMABSZFTdkQV7QPlRKy7fSban/PelBDpvqnEQj1j8qCwTnQyakGl0J6BhmlaCtEjaRcSWK80D8CmhoPaFIjz7gR9gxFOpPaVq5jjWtjIIN++N4gsnpQNASt0l9WZTJHl2QOvCdOh2KDa0WSWj81Ic7S0+70+Qfawi4M2wMjiH+pS10dQj9KE/FZoHUGLu4HWvviLkLKX5DfCrQm+ehQPGP/HWslXlFpKrbFGOshn6xhUFZBa+jp1kcZjYDpCACVnNa6GJfr5hF4JlD9/00yafaGovtV56BjSHuj5Zn4KJidZD8xIP7Wg+Vlvhvf08UB+HiBEX+lMJaZRAcFZMg3rPNe9UfdHffk+i7LCWKUdFW4lbd8vn3yj2zzlsfKaOihIS+R+kvuWOX1nHndmC94GF1ZWo28DY55Dqud8AdtAwYn+iQNOfkgA2RSbi8gtarTC5Ehx6GbBKkp2tavVXIc=
