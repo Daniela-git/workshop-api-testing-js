@@ -7,6 +7,7 @@ class GithubRequest {
       .set('User-Agent', 'agent');
     return response;
   }
+
   async authPut(url) {
     const response = await agent
       .put(url)
